@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+    background-color: beige;
+}
+
+header {
+    height: 100px;
+    background-color: cadetblue;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+header h1 {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+/* Index start */
+
+#index .login {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 35px;
+}
+
+
+
+#index .login input {
+    margin-right: 10px;
+}
+
+#index .register {
+    margin-left: 50px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+#index .register form {
+    display: flex;
+    flex-direction: column;
+}
+
+#index .register input {
+    width: 200px;
+    margin-top: 5px;
+}
+
+#index .register .password {
+    display: flex;
+    flex-direction: row;
+}
+
+/* Index end*/
