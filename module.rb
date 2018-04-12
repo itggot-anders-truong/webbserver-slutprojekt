@@ -1,6 +1,6 @@
 module Database
     def connect()
-        return SQLite3::Database.new('/db/db.db')
+        return SQLite3::Database.new('db/db.db')
     end
 
     def user_info(name:)
@@ -8,8 +8,9 @@ module Database
         return db.execute("SELECT * FROM users WHERE name=?",name)
     end
 
-    def register(name:, password:)
-        
+    def register(username:, password:)
+        db = connect()
+        db.execute("INSERT INTO users(name,password) VALUES(?,?)", [username,password])
     end
 
 

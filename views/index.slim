@@ -1,13 +1,19 @@
 div id="index"
     div class="register"
         h1 Register
-        form onsubmit="return register()" action="/register" method="POST"
+        -if error != nil && error != "Invalid credentials"
+            div class="errorbox"
+                p #{error}
+        form action="/register" method="POST"
             input type="text" name="name" placeholder="Username"
             div class="password"
                 input class="password1" type="text" name="password" placeholder="Password"
-                input class="password2" type="text" name="confirm" placeholder="Confirm Password"
+                input style="margin-left: 5px;" class="password2" type="text" name="confirm" placeholder="Confirm Password"
             input  style="width: 100px;" type="submit" value="Register"
     div class="login"
+        -if error == "Invalid credentials"
+            div class="errorbox"
+                p #{error}
         form method="POST" action="/login"
             input type="text" name="name" placeholder="Username"
             input type="text" name="password" placeholder="Password"

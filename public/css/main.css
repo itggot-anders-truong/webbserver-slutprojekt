@@ -17,7 +17,7 @@ header h1 {
     margin-bottom: auto;
 }
 
-/* Index start */
+/* Index */
 
 #index .login {
     position: absolute;
@@ -54,4 +54,59 @@ header h1 {
     flex-direction: row;
 }
 
-/* Index end*/
+.errorbox {
+    width: 170px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: crimson;
+}
+
+.errorbox p {
+    margin: 0;
+}
+
+.login .errorbox {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 30px;
+    margin-right: 10px;
+    padding-right: 19   0px;
+}
+/* Chat */
+
+#chat {
+    display: flex;
+    flex-direction: row;
+}
+
+#chat .rightbox {
+    width: 85vw;
+    height: 100vh;
+}
+
+#chat .leftbox {
+    width: 15vw;
+    height: 100vh;
+    border-left: solid 2px black;
+    display: flex;
+    flex-direction: column;
+}
+
+#chat .search {
+    height: 50px;
+    justify-content: center;
+}
+
+#chat .search form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#chat .search input {
+    margin-top: auto;
+    margin-bottom: auto;
+}
