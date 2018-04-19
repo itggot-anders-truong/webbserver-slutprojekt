@@ -7,11 +7,18 @@ class App < Sinatra::Base
 
 
 	get '/' do
+		session[:user] = nil
 		slim(:index, locals:{error:session[:error]})
 	end
 
-	get '/chat' do
-		slim(:chat)
+	get '/chat/' do
+		user = user_info_by_id(id:session[:user])
+		slim(:chat, locals:{value:session[:search],result:session[:searchresult], user:user})
+	end
+
+	get '/chat/:id' do
+		user = user_info_by_id(id:session[:user])
+		slim(:chat, locals:{value:session[:search],result:session[:searchresult], user:user})
 	end
 
 	post '/register' do
@@ -43,10 +50,18 @@ class App < Sinatra::Base
 		password_digest = info[0][2]
 		if BCrypt::Password.new(password_digest) == password
 			session[:user] = info[0][0]
-			redirect('/chat')
+			redirect('/chat/')
 		else
 			session[:error] = "Invalid credentials"
 			redirect('/')
 		end
+	end
+
+	post '/search' do
+		name = params["search"]
+		list = search(name:name)
+		session[:searchresult] = list
+		session[:search] = name
+		redirect('/chat')
 	end
 end            

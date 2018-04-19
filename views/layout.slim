@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+-if user == [] || user == nil
+    -user = [[]]    
+
 html lang="en"
     head
         meta charset="UTF-8"/
@@ -6,8 +9,10 @@ html lang="en"
         meta http-equiv="X-UA-Compatible" content="ie=edge"/
         link rel="stylesheet" href="/css/main.css"/
         title Chat up
-        script src="js/javascript.js"
+        script src="js/jquery-3.3.1.min.js"
     body
         header
             h1 Chat up
+            p class="loginas" #{user[0][1]}
         ==yield 
+        script src="js/javascript.js"

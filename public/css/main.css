@@ -10,11 +10,29 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    border: 1px solid;
+    box-shadow: 5px 10px 18px #888888;
 }
 
 header h1 {
     margin-top: auto;
     margin-bottom: auto;
+}
+
+
+.logout  {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 10px;
+    margin-right: 10px;
+    text-decoration: none;
+    color: whitesmoke;
+    font-size: 20px;
+}
+
+.hide {
+    display: none;
 }
 
 /* Index */
@@ -103,10 +121,22 @@ header h1 {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 #chat .search input {
     margin-top: auto;
     margin-bottom: auto;
 }
+
+#chat ul {
+    list-style-type: none;
+}
+
+#chat .result {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+

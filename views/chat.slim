@@ -1,12 +1,25 @@
+-if result == nil
+    -result = []
+-if user == [] || user == nil
+    -user = [[]]    
+
 div id="chat"
     div class="rightbox"
     div class="leftbox"
         div class="search"
             form action="search" method="POST"
-                input type="text" placeholder="Search for other users"
+                input value="#{value}" name="search" class="searchinput" type="text" placeholder="Search for other users"
                 input type="image" alt="submit" src="/img/search.png"
-        ul
-            li asdf
-            li fdsa
-            li sadf
-            li dfsa
+        div class="friendlist"
+            ul
+                li asdf
+                li fdsa
+                li sadf
+                li dfsa
+        div class="searchlist hide"
+            ul
+                -result.each do |user|
+                    li 
+                        a class="result" href="/chat/#{user[0]}" #{user[1]}
+    a class="logout" href="/" Log out
+    p class="loginas" #{user[0][1]}
