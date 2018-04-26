@@ -11,14 +11,32 @@ class App < Sinatra::Base
 		slim(:index, locals:{error:session[:error]})
 	end
 
-	get '/chat/' do
+	get '/chat' do
 		user = user_info_by_id(id:session[:user])
-		slim(:chat, locals:{value:session[:search],result:session[:searchresult], user:user})
+		slim(:chat, locals:{value:session[:search],result:session[:searchresult], user:user, id:nil})
 	end
 
 	get '/chat/:id' do
+		id = params[:id].to_i
+		p id
+		p session[:user]
+		chat_recieve = private_chat(from:session[:user], to:id)
+		chat_to = private_chat(from:id, to:session[:user])
+		index = []
+		library = []
+		chat_recieve.each do |message|
+			hash = {"value"=>message, "list" => "recieve"}
+			index.push(message[0])
+			library.push(hash)
+		end
+		chat_to.each do |message|
+			index.push(message[0])
+			hash = {"value"=>message, "list" => "to"}
+			library.push(hash)
+		end
+		index.sort!
 		user = user_info_by_id(id:session[:user])
-		slim(:chat, locals:{value:session[:search],result:session[:searchresult], user:user})
+		slim(:chat, locals:{value:session[:search],result:session[:searchresult], user:user, id:id})
 	end
 
 	post '/register' do
@@ -50,7 +68,7 @@ class App < Sinatra::Base
 		password_digest = info[0][2]
 		if BCrypt::Password.new(password_digest) == password
 			session[:user] = info[0][0]
-			redirect('/chat/')
+			redirect('/chat')
 		else
 			session[:error] = "Invalid credentials"
 			redirect('/')

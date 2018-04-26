@@ -5,9 +5,11 @@
 
 div id="chat"
     div class="rightbox"
+        -if id != nil
+            p asdf
     div class="leftbox"
         div class="search"
-            form action="search" method="POST"
+            form action="./search" method="POST"
                 input value="#{value}" name="search" class="searchinput" type="text" placeholder="Search for other users"
                 input type="image" alt="submit" src="/img/search.png"
         div class="friendlist"
@@ -18,8 +20,9 @@ div id="chat"
                 li dfsa
         div class="searchlist hide"
             ul
-                -result.each do |user|
+                -result.each do |user_result|
                     li 
-                        a class="result" href="/chat/#{user[0]}" #{user[1]}
+                        -if user_result[1] != user[0][1]
+                            a class="result" href="/chat/#{user_result[0]}" #{user_result[1]}
     a class="logout" href="/" Log out
     p class="loginas" #{user[0][1]}

@@ -23,6 +23,12 @@ module Database
         db = connect()
         db.execute("SELECT id,name FROM users WHERE name LIKE ?", ["%#{name}%"])
     end
+
+    def private_chat(from:, to:)
+        db = connect()
+        db.execute("SELECT id,message FROM private_message WHERE `to` = ? AND `from` = ?", [to,from])
+    end
+
 end
 
 
