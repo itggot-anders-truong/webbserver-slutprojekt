@@ -1,6 +1,7 @@
 body {
     margin: 0;
     background-color: beige;
+    overflow: hidden;
 }
 
 header {
@@ -100,6 +101,7 @@ header h1 {
 }
 
 #chat .rightbox {
+    margin-top: -100px;
     width: 85vw;
     height: 100vh;
     display: flex;
@@ -108,7 +110,7 @@ header h1 {
 
 #chat .leftbox {
     width: 15vw;
-    height: 100vh;
+    height: 90vh;
     border-left: solid 2px black;
     display: flex;
     flex-direction: column;

@@ -13,31 +13,34 @@ class App < Sinatra::Base
 
 	get '/chat' do
 		user = user_info_by_id(id:session[:user])
-		slim(:chat, locals:{value:session[:search],result:session[:searchresult], user:user, id:nil})
+		slim(:chat, locals:{value:session[:search],result:session[:searchresult], user:user, id:nil, message:[[]], names:[]})
 	end
 
 	get '/chat/:id' do
 		id = params[:id].to_i
-		p id
-		p session[:user]
-		chat_recieve = private_chat(from:session[:user], to:id)
-		chat_to = private_chat(from:id, to:session[:user])
-		index = []
-		library = []
-		chat_recieve.each do |message|
-			hash = {"value"=>message, "list" => "recieve"}
-			index.push(message[0])
-			library.push(hash)
-		end
-		chat_to.each do |message|
-			index.push(message[0])
-			hash = {"value"=>message, "list" => "to"}
-			library.push(hash)
-		end
-		index.sort!
+		message = private_chat(from:session[:user], to:id)
 		user = user_info_by_id(id:session[:user])
-		slim(:chat, locals:{value:session[:search],result:session[:searchresult], user:user, id:id})
+		names = []
+		message.each do |i|
+			names.push(get_name(id:i[1]))
+		end
+		p names
+		p message
+		slim(:chat, locals:{value:session[:search],result:session[:searchresult], user:user, id:id, message:message, names:names,user_id:session[:user]})
 	end
+
+	get '/chat/room/:id' do
+		id = params[:id].to_i
+		message = room_chat(id:id)
+		user = user_info_by_id(id:session[:user])
+		p message
+		if authorize(user_id:session[:user], room_id:id) == true
+			slim(:chat, locals:{value:session[:search],result:session[:searchresult], user:user, id:id, message:message})
+		else
+			redirect('./chat')
+		end
+	end
+
 
 	post '/register' do
 		username = params["name"]
@@ -81,5 +84,13 @@ class App < Sinatra::Base
 		session[:searchresult] = list
 		session[:search] = name
 		redirect('/chat')
+	end
+
+	post "/write/:from/:to" do
+		from = params[:from]
+		to = params[:to]
+		content = params['content']
+		write(from:from,to:to,content:content)
+		redirect("/chat/#{to}")
 	end
 end            
